@@ -1,0 +1,129 @@
+# ------------------------------------------------------------
+# calclex.py
+#
+# tokenizer for a simple expression evaluator for
+# numbers and +,-,*,/
+# ------------------------------------------------------------
+import ply.lex as lex
+
+# r'atring' -> r significa que la cadena es tradada sin caracteres de escape, 
+# es decir r'\n' seria un \ seguido de n (no se interpretaria como salto de linea) 
+
+ # List of token names.   This is always required
+reserved = { 
+    'wallis'        : 'TIPO_WHILE',
+    'foley'         : 'TIPO_FOR',
+    'pitt'          : 'PRINT',
+    'irak'          : 'IF',
+    'egipto'        : 'ELSE',
+    'india'         : 'INT',
+    'fiyi'          : 'FLOAT',
+    'bosnia'        : 'BOOL',
+    'rusia'         : 'RETURN'
+}
+
+tokens = [
+    'NUM',
+    'REAL',
+    'OPER_SUMA',
+    'OPER_RESTA',
+    'OPER_MUL',
+    'OPER_DIV',
+    'OPER_RESTO',
+    'SIG_MAYOR',
+    'SIG_MENOR',
+    'SIG_MAYORIGUAL',
+    'SIG_MENORIGUAL',
+    'SIG_IGUAL',
+    'OPER_IGUALDAD',
+    'OPER_DIFER',
+    'PARENT_INICIO',
+    'PARENT_FIN',
+    'LL_INICIO',
+    'LL_FIN',
+    'CORCH_INICIO',
+    'CORCH_FIN',
+    'COMA',
+    'PUNT_COMA',
+    'PUNTO',
+    'DOS_PUNTOS',
+    'ID',
+    'COMILLA_DOBLE'
+] + list(reserved.values())
+ 
+ # Regular expression rules for simple tokens
+t_OPER_SUMA    = r'\+'
+t_OPER_RESTA   = r'-'
+t_OPER_MUL   = r'\*'
+t_OPER_DIV  = r'/'
+t_OPER_RESTO = r'%'
+t_SIG_MAYOR = r'>'
+t_SIG_MENOR = r'<'
+t_SIG_MAYORIGUAL = r'>='
+t_SIG_MENORIGUAL = r'<='
+t_SIG_IGUAL = r'\='
+t_OPER_IGUALDAD = r'=='
+t_OPER_DIFER = r'!='
+t_PARENT_INICIO  = r'\('
+t_PARENT_FIN  = r'\)'
+t_LL_INICIO = r'\{'
+t_LL_FIN = r'\}'
+t_CORCH_INICIO = r'\['
+t_CORCH_FIN = r'\]'
+t_COMA = r'\,'
+t_PUNT_COMA = r'\;'
+t_PUNTO = r'\.'
+t_DOS_PUNTOS = r'\:'
+t_COMILLA_DOBLE = r'\"'
+
+#t_NUMBER  = r'\d+'
+ 
+ # A regular expression rule with some action code
+def t_ID(t):
+    r'[a-zA-Z]+([a-zA-Z0-9]*)'
+    t.type = reserved.get(t.value,'ID')    # Check for reserved words
+    return t
+
+def t_NUM(t):
+    r'\d+'
+    t.value = int(t.value)   
+    #print("se reconocio el numero")
+    return t
+ 
+ # Define a rule so we can track line numbers
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+ 
+ # A string containing ignored characters (spaces and tabs)
+t_ignore  = ' \t'
+ 
+ # Error handling rule
+def t_error(t):
+    print("Caracter ilegal '%s'" % t.value[0])
+    t.lexer.skip(1)
+ 
+# Build the lexer
+lexer = lex.lex()
+
+# Test it out
+data = '''
+
+india muna ()
+{
+      "Hola mundo";
+    rusia 0;
+}
+'''
+
+ 
+# Give the lexer some input
+lexer.input(data)
+
+# Tokenize
+while True:
+    tok = lexer.token()
+    if not tok: 
+        break      # No more input
+    #print(tok)
+    print(tok.type, tok.value, tok.lineno, tok.lexpos)
