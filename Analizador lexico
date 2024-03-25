@@ -17,8 +17,11 @@ reserved = {
     'irak'          : 'IF',
     'egipto'        : 'ELSE',
     'india'         : 'INT',
+    'muna'          : 'MAIN',
     'fiyi'          : 'FLOAT',
     'bosnia'        : 'BOOL',
+    'comoras'       : 'COUT',
+    'cijin'         : 'CIN',
     'rusia'         : 'RETURN'
 }
 
@@ -48,7 +51,12 @@ tokens = [
     'PUNTO',
     'DOS_PUNTOS',
     'ID',
-    'COMILLA_DOBLE'
+    'COMILLA_DOBLE',
+    'OPER_INCREMENTO',
+    'FLUJO_ENTRADA',
+    'FLUJO_SALIDA',
+    'CONDI_AND',
+    'CONDI_OR'
 ] + list(reserved.values())
  
  # Regular expression rules for simple tokens
@@ -75,6 +83,11 @@ t_PUNT_COMA = r'\;'
 t_PUNTO = r'\.'
 t_DOS_PUNTOS = r'\:'
 t_COMILLA_DOBLE = r'\"'
+t_OPER_INCREMENTO = r'\++'
+t_FLUJO_ENTRADA = r'>>'
+t_FLUJO_SALIDA = r'<<'
+t_CONDI_AND = r'&&'
+t_CONDI_OR = r'\|\|'
 
 #t_NUMBER  = r'\d+'
  
@@ -107,15 +120,57 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
+# Hola mundo
 data = '''
 
 india muna ()
 {
-      "Hola mundo";
-    rusia 0;
+	comoras << "Hola mundo";
+	rusia 0;
+}
+
+'''
+
+# Factorial iterativo
+'''data = 
+
+india factorial(india n) {
+   india resultado = 1;
+   foley(india i = 2; i <= n; ++i) {
+	resultado *= i;
+   }
+   rusia resultado;
+}
+
+india muna() {
+  india num;
+  comoras << "Ingresar un nemero para calcular factorial: ";
+  cijin >> num;
+  comoras << "El factorial de " << num << " es: " << factorial(num);
+  rusia 0;
 }
 '''
 
+
+# Factorial recursivo
+'''data = 
+
+india factorial(india n) {
+   irak (n== 0 || n==1){
+	rusia 1;
+   } else {
+	rusia n * factorial(n - 1);
+   }
+}
+
+india muna() {
+   india num;
+   comoras << "Ingresar un numero para calcular su factorial: ";
+   cijin >> num;
+   comoras << "El factorial de " << num << "es: " << factorial(num);
+   rusia 0;
+ '''
+ 
  
 # Give the lexer some input
 lexer.input(data)
