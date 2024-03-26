@@ -119,58 +119,10 @@ def t_error(t):
 # Build the lexer
 lexer = lex.lex()
 
-# Test it out
-# Hola mundo
-data = '''
-
-india muna ()
-{
-	comoras << "Hola mundo";
-	rusia 0;
-}
-
-'''
-
-# Factorial iterativo
-'''data = 
-
-india factorial(india n) {
-   india resultado = 1;
-   foley(india i = 2; i <= n; ++i) {
-	resultado *= i;
-   }
-   rusia resultado;
-}
-
-india muna() {
-  india num;
-  comoras << "Ingresar un nemero para calcular factorial: ";
-  cijin >> num;
-  comoras << "El factorial de " << num << " es: " << factorial(num);
-  rusia 0;
-}
-'''
-
-
-# Factorial recursivo
-'''data = 
-
-india factorial(india n) {
-   irak (n== 0 || n==1){
-	rusia 1;
-   } else {
-	rusia n * factorial(n - 1);
-   }
-}
-
-india muna() {
-   india num;
-   comoras << "Ingresar un numero para calcular su factorial: ";
-   cijin >> num;
-   comoras << "El factorial de " << num << "es: " << factorial(num);
-   rusia 0;
- '''
- 
+# Leer el contenido del archivo externo
+archivo_externo = "ejemplo1.txt"  # Reemplaza con el nombre de tu archivo
+with open(archivo_externo, "r") as file:
+    data = file.read()
  
 # Give the lexer some input
 lexer.input(data)
