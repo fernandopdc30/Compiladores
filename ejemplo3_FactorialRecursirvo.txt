@@ -1,0 +1,14 @@
+india factorial(india n) {
+   irak (n== 0 || n==1){
+	rusia 1;
+   } else {
+	rusia n * factorial(n - 1);
+   }
+}
+
+india muna() {
+   india num;
+   comoras << "Ingresar un numero para calcular su factorial: ";
+   cijin >> num;
+   comoras << "El factorial de " << num << "es: " << factorial(num);
+   rusia 0;
