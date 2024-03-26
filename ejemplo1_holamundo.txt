@@ -1,0 +1,5 @@
+india muna ()
+{
+	comoras << "Hola mundo";
+	rusia 0;
+}
