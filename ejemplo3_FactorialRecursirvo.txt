@@ -1,5 +1,5 @@
 india factorial(india n) {
-   irak (n== 0 || n==1){
+   irak (n == 0 || n == 1){
 	rusia 1;
    } else {
 	rusia n * factorial(n - 1);
