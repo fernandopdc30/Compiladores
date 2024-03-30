@@ -93,9 +93,10 @@ t_CONDI_OR = r'\|\|'
  
  # A regular expression rule with some action code
 def t_ID(t):
-    r'[a-zA-Z]+([a-zA-Z0-9]*)'
-    t.type = reserved.get(t.value,'ID')    # Check for reserved words
+    r'(\"[^\"]*\"|[a-zA-Z]+[a-zA-Z0-9]*)'
+    t.type = reserved.get(t.value.strip('"'),'ID')
     return t
+
 
 def t_NUM(t):
     r'\d+'
@@ -119,8 +120,8 @@ def t_error(t):
 # Build the lexer
 lexer = lex.lex()
 
-# Leer el contenido del archivo externo
-archivo_externo = "ejemplo1.txt"  # Reemplaza con el nombre de tu archivo
+# Archivo externo
+archivo_externo = "ejemplo1.txt" 
 with open(archivo_externo, "r") as file:
     data = file.read()
  
@@ -128,9 +129,18 @@ with open(archivo_externo, "r") as file:
 lexer.input(data)
 
 # Tokenize
-while True:
-    tok = lexer.token()
-    if not tok: 
-        break      # No more input
-    #print(tok)
+def tokenize(input_string):
+    lexer.input(input_string)
+    tokens = []
+    
+    while True:
+        tok = lexer.token()
+        if not tok: 
+            break
+        tokens.append(tok)
+    return tokens
+    
+# Print(tok)
+tokens = tokenize(data)
+for tok in tokens:
     print(tok.type, tok.value, tok.lineno, tok.lexpos)
