@@ -19,7 +19,8 @@ reserved = {
     'india'         : 'INT',
     'muna'          : 'MAIN',
     'fiyi'          : 'FLOAT',
-    'bosnia'        : 'BOOL',
+    'tentia'        : 'TRUE',
+    'finlandia'     : 'FALSE',
     'comoras'       : 'COUT',
     'cijin'         : 'CIN',
     'rusia'         : 'RETURN'
